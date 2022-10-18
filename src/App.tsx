@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Bill from "./Components/Bill";
+import Savings from "./Components/Savings";
+import Balance from "./Components/Balance";
+import { MoneyItem } from "./types/money";
 
 function App() {
+  const [income, setIncome] = useState<MoneyItem[]>([]);
+  const [expense, setExpense] = useState<MoneyItem[]>([]);
+  const [balance, setBalance] = useState(0);
+  const [saving, setSaving] = useState(0);
+  const totalIncome = income.reduce(
+    (previousValue, currentValue) => previousValue + currentValue.amount,
+    0
+  );
+  const totalExpenses = expense.reduce(
+    (previousValue, currentValue) => previousValue + currentValue.amount,
+    0
+  );
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Bill name="Income" list={income} setList={setIncome} />
+      <Bill name="Expence" list={expense} setList={setExpense} />
+      <Savings />
+      <Balance balance={balance} setBalance={setBalance} />
     </div>
   );
 }
