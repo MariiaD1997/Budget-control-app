@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 import { MoneyProps } from "../types/money";
-const Bill = ({ name, list, setList }: MoneyProps) => {
+const Bill = ({ name, list, setList, balance }: MoneyProps) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("");
@@ -17,9 +17,20 @@ const Bill = ({ name, list, setList }: MoneyProps) => {
     setDate(event.target.value);
   };
 
+  const clearInput = () => {
+    setTitle("");
+    setAmount(0);
+    setDate("");
+  };
   const onSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
+    if (name === "Expence") {
+      if (amount > balance) {
+        return alert(`You don't have enough money!`);
+      }
+    }
     setList([{ id: Date.now(), name, amount, date }, ...list]);
+    clearInput();
   };
   return (
     <div>
@@ -32,6 +43,7 @@ const Bill = ({ name, list, setList }: MoneyProps) => {
             id="title"
             value={title}
             onChange={changeTitleHandler}
+            required
           />
         </div>
         <div>
@@ -42,6 +54,7 @@ const Bill = ({ name, list, setList }: MoneyProps) => {
             id="amount"
             value={amount}
             onChange={amountChangeHandler}
+            required
           />
         </div>
         <div>
@@ -52,6 +65,7 @@ const Bill = ({ name, list, setList }: MoneyProps) => {
             id="date"
             value={date}
             onChange={dateChangeHandler}
+            required
           />
         </div>
         <button type="submit">Save</button>

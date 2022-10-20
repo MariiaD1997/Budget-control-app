@@ -25,8 +25,13 @@ function App() {
 
   return (
     <div className="App">
-      <Bill name="Income" list={income} setList={setIncome} />
-      <Bill name="Expence" list={expense} setList={setExpense} />
+      <Bill name="Income" list={income} setList={setIncome} balance={balance} />
+      <Bill
+        name="Expence"
+        list={expense}
+        setList={setExpense}
+        balance={balance}
+      />
       <Savings saving={saving} />
       <Balance balance={balance} setSaving={setSaving} />
     </div>

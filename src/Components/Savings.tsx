@@ -17,7 +17,6 @@ const Savings = ({ saving }: SavingProp) => {
           id="target"
           onChange={targetHandler}
         />
-        <button>Reset</button>
         <h4>Target: {target}</h4>
         <h4>Progress: </h4>
         <progress value={saving} max={target}></progress>
