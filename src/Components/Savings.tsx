@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { SavingProp } from "../types/balance";
 
-const Savings = () => {
+const Savings = ({ saving }: SavingProp) => {
+  const [target, setTarget] = useState(0);
+  const targetHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTarget(Number(event.target.value));
+  };
   return (
     <div>
-      <form action="">
-        <div>
-          <label htmlFor="">Set target</label>
-          <input type="text" name="" id="" />
-        </div>
+      <h4>Current saving: {saving}</h4>
+      <form>
+        <label htmlFor="target">Set target</label>
+        <input
+          type="number"
+          name="target"
+          id="target"
+          onChange={targetHandler}
+        />
         <button>Reset</button>
-        <h4>Current saving:</h4>
-        <h4>Target: </h4>
+        <h4>Target: {target}</h4>
         <h4>Progress: </h4>
-        <input type="range" name="" id="" />
+        <progress value={saving} max={target}></progress>
       </form>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Bill from "./Components/Bill";
 import Savings from "./Components/Savings";
@@ -19,12 +18,17 @@ function App() {
     (previousValue, currentValue) => previousValue + currentValue.amount,
     0
   );
+
+  useEffect(() => {
+    setBalance(totalIncome - totalExpenses - saving);
+  }, [income, expense, saving]);
+
   return (
     <div className="App">
       <Bill name="Income" list={income} setList={setIncome} />
       <Bill name="Expence" list={expense} setList={setExpense} />
-      <Savings />
-      <Balance balance={balance} setBalance={setBalance} />
+      <Savings saving={saving} />
+      <Balance balance={balance} setSaving={setSaving} />
     </div>
   );
 }
