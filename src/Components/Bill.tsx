@@ -1,4 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
+import { List, ListItem, Box, TextField, Button } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
 import { MoneyProps } from "../types/money";
 const Bill = ({ name, list, setList, balance }: MoneyProps) => {
   const [title, setTitle] = useState("");
@@ -33,53 +35,71 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
     clearInput();
   };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="title">Title of {name}</label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={title}
-            onChange={changeTitleHandler}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="amount">Amount of {name}</label>
-          <input
-            type="number"
-            name="amount"
-            id="amount"
-            value={amount}
-            onChange={amountChangeHandler}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="date">Date of {name}</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            value={date}
-            onChange={dateChangeHandler}
-            required
-          />
-        </div>
-        <button type="submit">Save</button>
-      </form>
+    <Box
+      component="form"
+      autoComplete="off"
+      sx={{ marginBottom: 5 }}
+      onSubmit={(e) => onSubmit(e)}
+      gap={2}
+      display="flex"
+      flexDirection="column"
+      alignItems="flex-start"
+    >
+      <TextField
+        label={`Title of ${name}`}
+        variant="filled"
+        type="text"
+        name="title"
+        id="title"
+        value={title}
+        onChange={changeTitleHandler}
+        required
+      />
+      <TextField
+        label={`Amount of ${name}`}
+        variant="filled"
+        type="number"
+        name="amount"
+        id="amount"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={amount}
+        onChange={amountChangeHandler}
+        required
+      />
+      <TextField
+        label={`Date of ${name}`}
+        variant="filled"
+        type="date"
+        name="date"
+        id="date"
+        value={date}
+        onChange={dateChangeHandler}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <Button
+        type="submit"
+        size="medium"
+        startIcon={<SaveIcon />}
+        variant="contained"
+        color="secondary"
+      >
+        Save
+      </Button>
 
-      <ul>
+      <List>
         {list.length > 0 &&
           list.map((element) => (
-            <li key={Date.now()}>
+            <ListItem key={Date.now()}>
               {element.name}: {element.amount} | {element.date}
-            </li>
+            </ListItem>
           ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 
