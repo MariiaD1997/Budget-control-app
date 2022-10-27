@@ -1,7 +1,9 @@
 import React, { SyntheticEvent, useState } from "react";
-import { List, ListItem, Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { MoneyProps } from "../types/money";
+import BillsTable from "./BillsTable";
+
 const Bill = ({ name, list, setList, balance }: MoneyProps) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
@@ -90,15 +92,7 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
       >
         Save
       </Button>
-
-      <List>
-        {list.length > 0 &&
-          list.map((element) => (
-            <ListItem key={Date.now()}>
-              {element.name}: {element.amount} | {element.date}
-            </ListItem>
-          ))}
-      </List>
+      <BillsTable list={list}></BillsTable>
     </Box>
   );
 };
