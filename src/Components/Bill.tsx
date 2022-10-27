@@ -33,7 +33,7 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
         return alert(`You don't have enough money!`);
       }
     }
-    setList([{ id: Date.now(), name, amount, date }, ...list]);
+    setList([{ id: Date.now(), title, amount, date }, ...list]);
     clearInput();
   };
   return (

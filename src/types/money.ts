@@ -1,5 +1,5 @@
 export interface MoneyItem {
-  name: string;
+  title: string;
   amount: number;
   date: string;
   id: number;
@@ -9,5 +9,5 @@ export interface MoneyProps {
   name: "Income" | "Expence";
   list: MoneyItem[];
   setList: (value: MoneyItem[]) => void;
-  balance: number
+  balance: number;
 }
