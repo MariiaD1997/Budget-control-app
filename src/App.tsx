@@ -4,6 +4,7 @@ import Bill from "./Components/Bill";
 import Savings from "./Components/Savings";
 import Balance from "./Components/Balance";
 import { MoneyItem } from "./types/money";
+import { Grid, Box } from "@mui/material";
 
 function App() {
   const [income, setIncome] = useState<MoneyItem[]>([]);
@@ -24,17 +25,30 @@ function App() {
   }, [income, expense, saving]);
 
   return (
-    <div className="App">
-      <Bill name="Income" list={income} setList={setIncome} balance={balance} />
-      <Bill
-        name="Expence"
-        list={expense}
-        setList={setExpense}
-        balance={balance}
-      />
-      <Savings saving={saving} />
+    <Box className="App">
+      <Grid container display="flex" padding={4}>
+        <Grid item md={4}>
+          <Bill
+            name="Income"
+            list={income}
+            setList={setIncome}
+            balance={balance}
+          />
+        </Grid>
+        <Grid item md={4}>
+          <Bill
+            name="Expence"
+            list={expense}
+            setList={setExpense}
+            balance={balance}
+          />
+        </Grid>
+        <Grid item md={4}>
+          <Savings saving={saving} />
+        </Grid>
+      </Grid>
       <Balance balance={balance} setSaving={setSaving} />
-    </div>
+    </Box>
   );
 }
 

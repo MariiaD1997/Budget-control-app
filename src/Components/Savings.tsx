@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { SavingProp } from "../types/balance";
-import { Typography, Box, TextField, Button } from "@mui/material";
-import SaveIcon from "@mui/icons-material/Save";
+import { Typography, Box, TextField, CircularProgress } from "@mui/material";
 const Savings = ({ saving }: SavingProp) => {
   const [target, setTarget] = useState(0);
   const targetHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +26,31 @@ const Savings = ({ saving }: SavingProp) => {
         onChange={targetHandler}
       />
       <Typography>Target: {target}</Typography>
-      <Typography>Progress: </Typography>
-      <progress value={saving} max={target}></progress>
+      <Box sx={{ position: "relative", display: "inline-flex" }}>
+        <CircularProgress
+          value={(saving / target) * 100}
+          variant="determinate"
+          color="secondary"
+        />
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            variant="caption"
+            component="div"
+            color="text.secondary"
+          >{`${Math.round((saving / target) * 100)}%`}</Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };

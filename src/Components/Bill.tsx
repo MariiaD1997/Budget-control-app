@@ -42,8 +42,8 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
       autoComplete="off"
       sx={{ marginBottom: 5 }}
       onSubmit={(e) => onSubmit(e)}
-      gap={2}
       display="flex"
+      gap={3}
       flexDirection="column"
       alignItems="flex-start"
     >
