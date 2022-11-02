@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { MoneyTableProps } from "../types/money";
+import { RootState } from "../redux/store";
 import {
   TablePagination,
   TableContainer,
+  Button,
   Table,
   TableHead,
   TableRow,
@@ -9,9 +13,17 @@ import {
   TableBody,
   Box,
 } from "@mui/material";
-import { MoneyItem } from "../types/money";
 
-const BillsTable = ({ list }: { list: MoneyItem[] }) => {
+import { deleteIncome } from "../redux/reducers/income";
+import { deleteExpense } from "../redux/reducers/expense";
+import { useAppDispatch } from "./hooks/reduxHooks";
+
+const BillsTable = ({ name }: MoneyTableProps) => {
+  const dispatch = useAppDispatch();
+  const list = useSelector((state: RootState) =>
+    name === "Income" ? state.incomeReducer : state.expenseReducer
+  );
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -22,6 +34,10 @@ const BillsTable = ({ list }: { list: MoneyItem[] }) => {
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const onDelete = (id: number) => {
+    dispatch(name === "Income" ? deleteIncome(id) : deleteExpense(id));
   };
   return (
     <Box>
@@ -42,6 +58,7 @@ const BillsTable = ({ list }: { list: MoneyItem[] }) => {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.amount}</TableCell>
                   <TableCell>{item.date}</TableCell>
+                  <Button onClick={() => onDelete(item.id)}>Delete</Button>
                 </TableRow>
               ))}
           </TableBody>

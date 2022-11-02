@@ -11,3 +11,7 @@ export interface MoneyProps {
   setList: (value: MoneyItem[]) => void;
   balance: number;
 }
+
+export interface MoneyTableProps {
+  name: string
+}

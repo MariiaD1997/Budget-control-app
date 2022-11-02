@@ -1,13 +1,20 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
+import { useDispatch, useSelector } from "react-redux";
+
 import { MoneyProps } from "../types/money";
 import BillsTable from "./BillsTable";
+import { addExpense } from "../redux/reducers/expense";
+import { addIncome } from "../redux/reducers/income";
+import { useAppDispatch } from "./hooks/reduxHooks";
 
-const Bill = ({ name, list, setList, balance }: MoneyProps) => {
+const Bill = ({ name, balance }: MoneyProps) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("");
+
+  const dispatch = useAppDispatch();
 
   const changeTitleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -31,9 +38,12 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
     if (name === "Expence") {
       if (amount > balance) {
         return alert(`You don't have enough money!`);
+      } else {
+        dispatch(addExpense({ id: Date.now(), title, amount, date }));
       }
+    } else {
+      dispatch(addIncome({ id: Date.now(), title, amount, date }));
     }
-    setList([{ id: Date.now(), title, amount, date }, ...list]);
     clearInput();
   };
   return (
@@ -92,7 +102,7 @@ const Bill = ({ name, list, setList, balance }: MoneyProps) => {
       >
         Save
       </Button>
-      <BillsTable list={list}></BillsTable>
+      <BillsTable name={name}></BillsTable>
     </Box>
   );
 };
