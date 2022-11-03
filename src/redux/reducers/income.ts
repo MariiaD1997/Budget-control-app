@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MoneyItem } from "../../types/money";
 
 const initialState: MoneyItem[] = [];
@@ -6,7 +6,7 @@ const incomeSlicer = createSlice({
   name: "incomes",
   initialState,
   reducers: {
-    addIncome: (state, action) => {
+    addIncome: (state, action: PayloadAction<MoneyItem>) => {
       return (state = [...state, action.payload]);
     },
     deleteIncome: (state, action) => {

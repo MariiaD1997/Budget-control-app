@@ -7,11 +7,9 @@ export interface MoneyItem {
 
 export interface MoneyProps {
   name: "Income" | "Expence";
-  list: MoneyItem[];
-  setList: (value: MoneyItem[]) => void;
   balance: number;
 }
 
 export interface MoneyTableProps {
-  name: string
+  name: string;
 }

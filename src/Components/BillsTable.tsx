@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { MoneyTableProps } from "../types/money";
-import { RootState } from "../redux/store";
 import {
   TablePagination,
   TableContainer,
-  Button,
   Table,
   TableHead,
   TableRow,
@@ -16,12 +12,14 @@ import {
 
 import { deleteIncome } from "../redux/reducers/income";
 import { deleteExpense } from "../redux/reducers/expense";
-import { useAppDispatch } from "./hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
+import { RootState } from "../redux/store";
+import { MoneyTableProps } from "../types/money";
 
 const BillsTable = ({ name }: MoneyTableProps) => {
   const dispatch = useAppDispatch();
-  const list = useSelector((state: RootState) =>
-    name === "Income" ? state.incomeReducer : state.expenseReducer
+  const list = useAppSelector((state: RootState) =>
+    name === "Expence" ? state.expenseReducer : state.incomeReducer
   );
 
   const [page, setPage] = useState(0);
@@ -58,7 +56,9 @@ const BillsTable = ({ name }: MoneyTableProps) => {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.amount}</TableCell>
                   <TableCell>{item.date}</TableCell>
-                  <Button onClick={() => onDelete(item.id)}>Delete</Button>
+                  <TableCell onClick={() => onDelete(item.id)}>
+                    Delete
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

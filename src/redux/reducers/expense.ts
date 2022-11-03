@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MoneyItem } from "../../types/money";
 
 const initialState: MoneyItem[] = [];
@@ -6,9 +6,8 @@ const expenseSlicer = createSlice({
   name: "expenses",
   initialState,
   reducers: {
-    addExpense: (state, action) => {
+    addExpense: (state, action: PayloadAction<MoneyItem>) => {
       state = [...state, action.payload];
-      console.log("addexpense is invoked");
     },
     deleteExpense: (state, action) => {
       return state.filter((item) => item.id !== action.payload);

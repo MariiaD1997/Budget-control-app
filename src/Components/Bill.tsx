@@ -1,7 +1,6 @@
-import React, { SyntheticEvent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import { useDispatch, useSelector } from "react-redux";
 
 import { MoneyProps } from "../types/money";
 import BillsTable from "./BillsTable";
@@ -28,23 +27,24 @@ const Bill = ({ name, balance }: MoneyProps) => {
     setDate(event.target.value);
   };
 
-  const clearInput = () => {
-    setTitle("");
-    setAmount(0);
-    setDate("");
-  };
   const onSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    if (name === "Expence") {
-      if (amount > balance) {
-        return alert(`You don't have enough money!`);
-      } else {
-        dispatch(addExpense({ id: Date.now(), title, amount, date }));
-      }
+    if (name === "Expence" && amount > balance) {
+      return alert(`You don't have enough money!`);
+    }
+
+    if (amount < balance) {
+      dispatch(addExpense({ id: Date.now(), title, amount, date }));
     } else {
       dispatch(addIncome({ id: Date.now(), title, amount, date }));
     }
     clearInput();
+  };
+
+  const clearInput = () => {
+    setTitle("");
+    setAmount(0);
+    setDate("");
   };
   return (
     <Box
