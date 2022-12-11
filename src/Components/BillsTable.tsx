@@ -56,9 +56,6 @@ const BillsTable = ({ name }: MoneyTableProps) => {
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.amount}</TableCell>
                   <TableCell>{item.date}</TableCell>
-                  <TableCell onClick={() => onDelete(item.id)}>
-                    Delete
-                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
