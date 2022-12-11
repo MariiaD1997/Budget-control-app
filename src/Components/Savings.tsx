@@ -4,6 +4,7 @@ import { Typography, Box, TextField, CircularProgress } from "@mui/material";
 const Savings = ({ saving }: SavingProp) => {
   const [target, setTarget] = useState(0);
   const targetHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     setTarget(Number(event.target.value));
   };
   return (

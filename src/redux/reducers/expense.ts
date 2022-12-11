@@ -7,7 +7,7 @@ const expenseSlicer = createSlice({
   initialState,
   reducers: {
     addExpense: (state, action: PayloadAction<MoneyItem>) => {
-      state = [...state, action.payload];
+      return (state = [...state, action.payload]);
     },
     deleteExpense: (state, action) => {
       return state.filter((item) => item.id !== action.payload);
